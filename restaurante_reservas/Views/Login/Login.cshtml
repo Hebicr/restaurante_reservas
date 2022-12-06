@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container" style="height: 300px; width: 400px; text-align: center; ">
+    <div style=" height: 50px; width: 200px; margin: 0px auto; ">
+        @*<h2>Login</h2>*@
+        <br />
+        <br />
+        <form action="@Url.Action("Login","Login")" method="post">
+            <div class="input-group mb-3">
+                <div class="input-group-append">
+                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                </div>
+                <input type="text" name="Usuario" class="form-control input_user" value="" placeholder="Usuario" required>
+            </div>
+            <div class="input-group mb-2">
+                <div class="input-group-append">
+                    <span class="input-group-text"><i class="fas fa-key"></i></span>
+                </div>
+                <input type="password" name="Password" class="form-control input_pass" value="" placeholder="Contraseña" required>
+            </div>
+
+            @if (ViewData["Mensaje"] != null)
+            {
+                <div class="alert alert-danger" role="alert">
+                    @ViewData["Mensaje"]
+                </div>
+            }
+
+            @if (ViewData["Error"] != null)
+            {
+                <div class="alert alert-danger" role="alert">
+                    @ViewData["Error"]
+                </div>
+            }
+
+            @if (TempData["info"] != null)
+            {
+                <div class="alert alert-danger" role="alert">
+                    @TempData["info"]
+                </div>
+            }
+            <br />
+            <div class="d-flex justify-content-center mt-3 login_container">
+                <button type="submit" name="button" class="btn btn-success">Iniciar Sesion</button>
+            </div>
+        </form>
+
+        <br />
+        <a class="dropdown-item" href="@Url.Action("Registro", "Login")" style="float: left; ">Registrese</a>
+        <br />
+        @*<a class="dropdown-item" href="#" style="float: left; ">Olvido la Contrasena?</a>*@
+    </div>
+</div>
+

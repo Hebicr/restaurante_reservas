@@ -1,0 +1,134 @@
+﻿@model restaurante_reservas.Models.Clientes
+
+@{
+    ViewBag.Title = "Registro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container" style="height: auto; width: auto; ">
+    <div style=" height: auto; width: auto; margin: 0px auto; " >
+        @*<h2>Login</h2>*@
+        <br />
+        <br />
+        <form action="@Url.Action("Registro","Login")" method="post">
+            <div class="form-horizontal form-group-sm col-md-8 col-md-offset-2">
+                <h2>Registro</h2>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="form-group col-md-6">
+                    @Html.LabelFor(model => model.Cedula, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.Cedula, new { htmlAttributes = new { @class = "form-control", @required = "required", @maxlength = "15" } })
+                        @Html.ValidationMessageFor(model => model.Cedula, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group col-md-6">
+                    @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control", @required = "required", @maxlength = "49" } })
+                        @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group col-md-6">
+                    @*@Html.LabelFor(model => model.PrimerApellido, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                    @Html.Label("Primer Apellido", "Primer Apellido", htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.PrimerApellido, new { htmlAttributes = new { @class = "form-control", @required = "required", @maxlength = "49" } })
+                        @Html.ValidationMessageFor(model => model.PrimerApellido, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group col-md-6">
+                    @*@Html.LabelFor(model => model.SegundoApellido, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                    @Html.Label("Segundo Apellido", "Segundo Apellido", htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.SegundoApellido, new { htmlAttributes = new { @class = "form-control", @required = "required", @maxlength = "49" } })
+                        @Html.ValidationMessageFor(model => model.SegundoApellido, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group col-md-6">
+                    @*@Html.LabelFor(model => model.FechadeNacimiento, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                    @Html.Label("Fecha de Nacimiento", "Fecha de Nacimiento", htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.FechadeNacimiento, new { htmlAttributes = new { @class = "form-control", @required = "required", @type = "date", @maxlength = "8" } })
+                        @Html.ValidationMessageFor(model => model.FechadeNacimiento, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group col-md-6">
+                    @*@Html.LabelFor(model => model.TelefonoPrincipal, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                    @Html.Label("Telefono Principal", "Telefono Principal", htmlAttributes: new { @class = "control-label col-md-4" })
+
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.TelefonoPrincipal, new { htmlAttributes = new { @class = "form-control", @required = "required", @maxlength = "8" } })
+                        @Html.ValidationMessageFor(model => model.TelefonoPrincipal, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group col-md-6">
+                    @*@Html.LabelFor(model => model.CorreoElectronico, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                    @Html.Label("Correo Electronico", "Correo Electronico", htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.CorreoElectronico, new { htmlAttributes = new { @class = "form-control", @required = "required", @type = "email", @maxlength = "99" } })
+                        @Html.ValidationMessageFor(model => model.CorreoElectronico, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-5 col-md-8">
+                        <input type="submit" value="Registro" class="btn btn-success" />
+                        <input type="button" value="Cancelar" class="btn btn-danger" onclick="location.href='@Url.Action("Login","Login")';" />
+                    </div>
+                </div>
+            </div>
+
+
+            @if (ViewData["Mensaje"] != null)
+            {
+                <div class="alert alert-success" role="alert">
+                    @ViewData["Mensaje"]
+                </div>
+            }
+
+            @if (ViewData["Error"] != null)
+            {
+                <div class="alert alert-danger" role="alert">
+                    @ViewData["Error"]
+                </div>
+            }
+            <br />
+        </form>
+    </div>
+</div>
+
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+
+            $("#Cedula").bind('keypress', function (event) {
+                var regex = new RegExp("^[0-9]+$");
+                var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+                if (!regex.test(key)) {
+                    event.preventDefault();
+                    return false;
+                }
+            });
+
+            $("#TelefonoPrincipal").bind('keypress', function (event) {
+                var regex = new RegExp("^[0-9]+$");
+                var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+                if (!regex.test(key)) {
+                    event.preventDefault();
+                    return false;
+                }
+            });
+
+        });
+    </script>
+}

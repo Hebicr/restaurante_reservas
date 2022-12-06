@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+
+
+<div class="container" style="height: auto; width: auto; padding:30px ">
+    <div style=" height: auto; width: auto; margin: 0px auto; ">
+        <div class="row">
+            @foreach (var item in @ViewBag.menu)
+            {
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4" style="width:auto;height:auto">
+                    <div class="thumbnail">
+                        <img src="~/@item.img" alt="@item.img" style="width:250px;height:200px" />
+                        <div class="caption" style="text-align:center; ">
+                            <h4><b>@item.platillo</b></h4>
+                            <p>@item.descripcion</p>
+                            <h4>@item.categoria</h4>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@if (ViewData["Mensaje"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @ViewData["Mensaje"]
+    </div>
+}
+
+@if (ViewData["Error"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @ViewData["Error"]
+    </div>
+}

@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewBag.Title = "ClienteReservas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container" style="height: auto; width: auto; padding: 30px">
+    <div style=" height: auto; width: auto; margin: 0px auto; ">
+        <table class="table table-responsive table-hover table-fixed text-center" style="">
+            <thead class="bg-dark text-light">
+                <tr style="">
+                    <th style="" scope="col">Fecha</th>
+                    <th style="" scope="col">Cantidad de Personas </th>
+                    <th style="" scope="col">Estado </th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (ViewBag.listaReservasCliente != null)
+                {
+                    foreach (var item in ViewBag.listaReservasCliente)
+                    {
+                        <tr style="">
+                            <td style="">@item.fecha</td>
+                            <td style="">@item.cantidad_personas</td>
+                            <td style="">@item.estado</td>
+                        </tr>
+                    }
+                }
+
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+        
+
