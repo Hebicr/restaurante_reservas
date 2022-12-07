@@ -23,7 +23,7 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
 
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
                     <li>@Html.ActionLink("Menu", "Menu", "Home")</li>
 
 
@@ -41,6 +41,7 @@
                                 <ul class="dropdown-menu">
                                     <li><a href="@Url.Action("", "")">Clientes</a></li>
                                     <li><a href="@Url.Action("", "")">Reservas</a></li>
+                                    <li><a href="@Url.Action("", "")">Menu</a></li>
                                     <li><a href="@Url.Action("LogOut", "Home")">Salir</a></li>
                                 </ul>
                             </li>
@@ -54,7 +55,7 @@
                                     </svg>@Session["clientelognombre"] @Session["clientelogapellido1"] @Session["clientelogapellido2"]<span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="@Url.Action("", "")">Mi Cuenta</a></li>
+                                    <li><a href="@Url.Action("ClienteInfo", "Home")">Mi Cuenta</a></li>
                                     <li><a href="@Url.Action("ClienteReservas", "Home")">Mis Reservas</a></li>
                                     <li><a href="@Url.Action("LogOut", "Home")">Salir</a></li>
                                 </ul>

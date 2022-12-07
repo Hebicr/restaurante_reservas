@@ -112,7 +112,7 @@ namespace restaurante_reservas.Controllers
                 ViewData["Error"] = "Ocurrio un error : " + ex.Message;
                 return View();
             }
-            
+
         }
 
         public ActionResult ClienteReservas()
@@ -132,10 +132,50 @@ namespace restaurante_reservas.Controllers
                 ViewData["Error"] = "Ocurrio un error : " + ex.Message;
                 return View();
             }
-
         }
 
+        public ActionResult ClienteInfo() {
+            try
+            {
+                if (Session["usuario"] != null)
+                {
+                    var id = Session["usuario"];
+                    var infoCliente = db.sp_Seleccionar_Cliente((int)id).ToList();
+                    ViewBag.infoCliente = infoCliente;
+                    return View();
+                }
+                else {
+                    return View();
+                }
 
+            }
+            catch (Exception ex)
+            {
+                ViewData["Error"] = "Ocurrio un error : " + ex.Message;
+                return View();
+            }
+        }
 
+        [HttpPost]
+        public ActionResult ActualizarCliente(FormCollection myReserva) 
+        {
+            try {
+
+                var id = Session["clientelogId"];
+                db.sp_Actualizar_Cliente((int)id, myReserva["Nombre"], myReserva["Primer Apellido"], myReserva["Segundo Apellido"], myReserva["Telefono Principal"], myReserva["Correo Electronico"]);
+                
+                TempData["info"] = "Se Actualizo Correctamente ";
+                
+                return RedirectToAction("ClienteInfo", "Home");
+
+            } catch (Exception ex) {
+
+                TempData["error"] = "Ocurrio un error : " + ex.Message;
+                ViewData["Error"] = "Ocurrio un error : " + ex.Message;
+               
+                return RedirectToAction("ClienteInfo", "Home");
+
+            }
+        }
     }
 }

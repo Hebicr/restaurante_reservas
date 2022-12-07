@@ -228,5 +228,34 @@ namespace restaurante_reservas.Models
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
         }
+    
+        public virtual int sp_Actualizar_Cliente(Nullable<int> id_Cliente, string nombre, string primer_apellido, string segundo_apellido, string telefono_principal, string correo)
+        {
+            var id_ClienteParameter = id_Cliente.HasValue ?
+                new ObjectParameter("id_Cliente", id_Cliente) :
+                new ObjectParameter("id_Cliente", typeof(int));
+    
+            var nombreParameter = nombre != null ?
+                new ObjectParameter("nombre", nombre) :
+                new ObjectParameter("nombre", typeof(string));
+    
+            var primer_apellidoParameter = primer_apellido != null ?
+                new ObjectParameter("primer_apellido", primer_apellido) :
+                new ObjectParameter("primer_apellido", typeof(string));
+    
+            var segundo_apellidoParameter = segundo_apellido != null ?
+                new ObjectParameter("segundo_apellido", segundo_apellido) :
+                new ObjectParameter("segundo_apellido", typeof(string));
+    
+            var telefono_principalParameter = telefono_principal != null ?
+                new ObjectParameter("telefono_principal", telefono_principal) :
+                new ObjectParameter("telefono_principal", typeof(string));
+    
+            var correoParameter = correo != null ?
+                new ObjectParameter("correo", correo) :
+                new ObjectParameter("correo", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Actualizar_Cliente", id_ClienteParameter, nombreParameter, primer_apellidoParameter, segundo_apellidoParameter, telefono_principalParameter, correoParameter);
+        }
     }
 }
