@@ -20,7 +20,13 @@
         <div class="form-group">
             @Html.LabelFor(model => model.fecha, htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-8">
-                @Html.EditorFor(model => model.fecha, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                @*@Html.EditorFor(model => model.fecha, new { htmlAttributes = new { @class = "form-control", @required = "required", @type = "datetime-local", @maxlength = "8", value = @model.fecha } })*@
+                @Html.TextBoxFor(model => model.fecha, "{0:yyyy-MM-ddTHH:mm:ss}", new
+                       {
+                           @class = "form-control",
+                           required = "required",
+                           @type = "datetime-local"
+                       })
                 @Html.ValidationMessageFor(model => model.fecha, "", new { @class = "text-danger" })
             </div>
         </div>

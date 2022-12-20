@@ -36,6 +36,8 @@ namespace restaurante_reservas.Controllers
         // GET: Reservas/Create
         public ActionResult Create()
         {
+            List<Clientes> clientesList = db.Clientes.ToList();
+            ViewBag.clientesList = new SelectList(clientesList, "id", "Cedula");
             return View();
         }
 
@@ -45,12 +47,13 @@ namespace restaurante_reservas.Controllers
         {
             try
             {
-                // TODO: Add insert logic here
+                db.sp_Inserta_Reserva_Admin(Convert.ToDateTime(collection["fecha"]),Convert.ToInt32(collection["id_Cliente"]),5,Convert.ToInt32(collection["cantidad_personas"]));
 
-                return RedirectToAction("Index");
+                return RedirectToAction("AdminReservas");
             }
-            catch
+            catch(Exception ex)
             {
+                ViewData["Error"] = "Ocurrio un error : " + ex.Message;
                 return View();
             }
         }

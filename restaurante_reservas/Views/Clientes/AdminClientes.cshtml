@@ -1,0 +1,44 @@
+﻿@model IEnumerable<restaurante_reservas.Models.sp_Seleccionar_Usuarios_Admin_Result>
+
+@{
+    ViewBag.Title = "Administrar Usuarios";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Administrar Usuarios</h2>
+
+@*<p>
+    @Html.ActionLink("Create New", "Create")
+</p>*@
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.usuario)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Estado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rol)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.usuario)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Estado)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Rol)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.id }) 
+        </td>
+    </tr>
+}
+
+</table>

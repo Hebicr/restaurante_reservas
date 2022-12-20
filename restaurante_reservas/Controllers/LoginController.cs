@@ -34,9 +34,15 @@ namespace restaurante_reservas.Controllers
 
                 if (idUsuario != 0)
                 {
-
-                    Session["usuario"] = idUsuario;
-                    return RedirectToAction("Index", "Home");
+                    Usuarios myUsuario = (from c in db.Usuarios where c.id == idUsuario select c).First();
+                    if (myUsuario.id_Estado != 1) {
+                        ViewData["Error"] = "Usuario Bloqueado";
+                        return View();
+                    } else {
+                        Session["usuario"] = idUsuario;
+                        return RedirectToAction("Index", "Home");
+                    }
+                    
                 }
                 else
                 {

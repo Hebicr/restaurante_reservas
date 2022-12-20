@@ -153,6 +153,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ReservasController.cs" />
@@ -208,6 +209,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_Seleccionar_Menu_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_Seleccionar_Usuarios_Admin_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_Selecionar_Reservas_Cliente_Result.cs">
@@ -302,6 +306,9 @@
     <Content Include="Views\Reservas\AdminReservas.cshtml" />
     <Content Include="Views\Reservas\Edit.cshtml" />
     <Content Include="Views\Reservas\Details.cshtml" />
+    <Content Include="Views\Reservas\Create.cshtml" />
+    <Content Include="Views\Clientes\AdminClientes.cshtml" />
+    <Content Include="Views\Clientes\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

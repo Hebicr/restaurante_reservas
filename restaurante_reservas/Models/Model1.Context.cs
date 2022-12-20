@@ -65,6 +65,27 @@ namespace restaurante_reservas.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Actualizar_Cliente", id_ClienteParameter, nombreParameter, primer_apellidoParameter, segundo_apellidoParameter, telefono_principalParameter, correoParameter);
         }
     
+        public virtual int sp_Actualizar_Reserva(Nullable<int> id, Nullable<System.DateTime> fecha, Nullable<int> id_Estado, Nullable<int> cantidad_personas)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var fechaParameter = fecha.HasValue ?
+                new ObjectParameter("fecha", fecha) :
+                new ObjectParameter("fecha", typeof(System.DateTime));
+    
+            var id_EstadoParameter = id_Estado.HasValue ?
+                new ObjectParameter("id_Estado", id_Estado) :
+                new ObjectParameter("id_Estado", typeof(int));
+    
+            var cantidad_personasParameter = cantidad_personas.HasValue ?
+                new ObjectParameter("cantidad_personas", cantidad_personas) :
+                new ObjectParameter("cantidad_personas", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Actualizar_Reserva", idParameter, fechaParameter, id_EstadoParameter, cantidad_personasParameter);
+        }
+    
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {
             var diagramnameParameter = diagramname != null ?
@@ -234,6 +255,27 @@ namespace restaurante_reservas.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Inserta_Reserva", id_ClienteParameter, fechaParameter, id_EstadoParameter, cant_PersonasParameter);
         }
     
+        public virtual int sp_Inserta_Reserva_Admin(Nullable<System.DateTime> fecha, Nullable<int> id_Cliente, Nullable<int> id_Estado, Nullable<int> cantidad_personas)
+        {
+            var fechaParameter = fecha.HasValue ?
+                new ObjectParameter("fecha", fecha) :
+                new ObjectParameter("fecha", typeof(System.DateTime));
+    
+            var id_ClienteParameter = id_Cliente.HasValue ?
+                new ObjectParameter("id_Cliente", id_Cliente) :
+                new ObjectParameter("id_Cliente", typeof(int));
+    
+            var id_EstadoParameter = id_Estado.HasValue ?
+                new ObjectParameter("id_Estado", id_Estado) :
+                new ObjectParameter("id_Estado", typeof(int));
+    
+            var cantidad_personasParameter = cantidad_personas.HasValue ?
+                new ObjectParameter("cantidad_personas", cantidad_personas) :
+                new ObjectParameter("cantidad_personas", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Inserta_Reserva_Admin", fechaParameter, id_ClienteParameter, id_EstadoParameter, cantidad_personasParameter);
+        }
+    
         public virtual ObjectResult<Nullable<int>> sp_Login(string usuario, string contrasena)
         {
             var usuarioParameter = usuario != null ?
@@ -281,6 +323,11 @@ namespace restaurante_reservas.Models
         public virtual ObjectResult<sp_Seleccionar_Menu_Admin_Result> sp_Seleccionar_Menu_Admin()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Seleccionar_Menu_Admin_Result>("sp_Seleccionar_Menu_Admin");
+        }
+    
+        public virtual ObjectResult<sp_Seleccionar_Usuarios_Admin_Result> sp_Seleccionar_Usuarios_Admin()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Seleccionar_Usuarios_Admin_Result>("sp_Seleccionar_Usuarios_Admin");
         }
     
         public virtual ObjectResult<sp_Selecionar_Reservas_Cliente_Result> sp_Selecionar_Reservas_Cliente(Nullable<int> id_Cliente)
@@ -331,25 +378,25 @@ namespace restaurante_reservas.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
         }
     
-        public virtual int sp_Actualizar_Reserva(Nullable<int> id, Nullable<System.DateTime> fecha, Nullable<int> id_Estado, Nullable<int> cantidad_personas)
+        public virtual int sp_Actualizar_Usuarios_Admin(Nullable<int> id, string contrasena, Nullable<int> id_Estado, Nullable<int> id_Rol)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
     
-            var fechaParameter = fecha.HasValue ?
-                new ObjectParameter("fecha", fecha) :
-                new ObjectParameter("fecha", typeof(System.DateTime));
+            var contrasenaParameter = contrasena != null ?
+                new ObjectParameter("contrasena", contrasena) :
+                new ObjectParameter("contrasena", typeof(string));
     
             var id_EstadoParameter = id_Estado.HasValue ?
                 new ObjectParameter("id_Estado", id_Estado) :
                 new ObjectParameter("id_Estado", typeof(int));
     
-            var cantidad_personasParameter = cantidad_personas.HasValue ?
-                new ObjectParameter("cantidad_personas", cantidad_personas) :
-                new ObjectParameter("cantidad_personas", typeof(int));
+            var id_RolParameter = id_Rol.HasValue ?
+                new ObjectParameter("id_Rol", id_Rol) :
+                new ObjectParameter("id_Rol", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Actualizar_Reserva", idParameter, fechaParameter, id_EstadoParameter, cantidad_personasParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Actualizar_Usuarios_Admin", idParameter, contrasenaParameter, id_EstadoParameter, id_RolParameter);
         }
     }
 }
