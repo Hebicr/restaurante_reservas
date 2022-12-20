@@ -1,0 +1,68 @@
+﻿@model restaurante_reservas.Models.sp_Seleccionar_Menu_Admin_Result
+
+@{
+    ViewBag.Title = "Menu Borrar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<h2>MenuDelete</h2>*@
+
+<h3>¿Seguro que quieres borrar esto?</h3>
+<div>
+    @*<h4>sp_Seleccionar_Menu_Admin_Result</h4>*@
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.platillo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.platillo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.img)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.img)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.categoria)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.categoria)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.estado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.estado)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+<div class="form-actions no-color">
+    <input type="submit" value="Borrar" class="btn btn-warning" /> |
+    <a href='@Url.Action("AdminMenu", "Home")'>
+        <input type='button' value='Atras' class="btn btn-danger" />
+    </a>
+    @*@Html.ActionLink("Atras", "AdminMenu")*@
+</div>
+    }
+</div>

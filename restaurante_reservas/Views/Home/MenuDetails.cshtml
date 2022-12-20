@@ -1,0 +1,95 @@
+﻿@model restaurante_reservas.Models.sp_Seleccionar_Menu_Admin_Result
+
+@{
+    ViewBag.Title = "Menu Detalles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Menu Detalles</h2>
+
+<div>
+    @*<h4>sp_Seleccionar_Menu_Result</h4>*@
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.platillo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.platillo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.img)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.img)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.categoria)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.categoria)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.estado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.estado)
+        </dd>
+
+    </dl>
+</div>
+
+<p>
+    @*@Html.ActionLink("Editar", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Atras", "AdminMenu")*@
+    <a class="btn btn-danger btn-sm" href='@Url.Action("AdminMenu", "Home") '>Atras</a>
+    <a class="btn btn-warning btn-sm" href='@Url.Action("MenuEdit", "Home",new { id = Model.id }) '>Editar</a>
+
+
+</p>
+
+<div class="col-md-offset-2 col-md-8">
+    @if (ViewData["Mensaje"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            @ViewData["Mensaje"]
+        </div>
+    }
+
+    @if (ViewData["Error"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @ViewData["Error"]
+        </div>
+    }
+
+    @if (TempData["info"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData["info"]
+        </div>
+    }
+    @if (TempData["error"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @TempData["error"]
+        </div>
+    }
+</div>
+
+

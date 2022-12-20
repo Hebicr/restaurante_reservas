@@ -1,0 +1,51 @@
+﻿@model restaurante_reservas.Models.sp_Selecionar_Todas_Reservas_Result
+
+@{
+    ViewBag.Title = "Reserva Detalles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Reserva Detalles</h2>
+
+<div>
+    @*<h4>sp_Selecionar_Todas_Reservas_Result</h4>*@
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.fecha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cedula)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cedula)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.estado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.estado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cantidad_personas)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cantidad_personas)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Atras", "AdminReservas")
+</p>

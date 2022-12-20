@@ -1,6 +1,8 @@
-﻿using restaurante_reservas.Models;
+﻿using Microsoft.AspNetCore.Http;
+using restaurante_reservas.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -59,6 +61,170 @@ namespace restaurante_reservas.Controllers
 
         }
 
+        public ActionResult AdminMenu()
+        {
+            try
+            {
+                var menu = db.sp_Seleccionar_Menu_Admin().ToList();
+                return View(menu);
+            }
+            catch (Exception ex)
+            {
+                ViewData["Error"] = "Ocurrio un error : " + ex.Message;
+                return View();
+            }
+
+        }
+
+        public ActionResult MenuDetails(int id)
+        {
+            //LINQ
+            sp_Seleccionar_Menu_Admin_Result myMenu = (from c in db.sp_Seleccionar_Menu_Admin() where id == c.id select c).First();
+            return View(myMenu);
+        }
+
+        public ActionResult MenuCreate()
+        {
+            List<categoria_menu> categoriaList = db.categoria_menu.ToList();
+            ViewBag.categoriaList = new SelectList(categoriaList, "id", "categoria");
+
+            List<Estados> estadoList = db.Estados.Where(x => x.categoria == "menu").ToList();
+            ViewBag.estadoList = new SelectList(estadoList, "id", "estado");
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult MenuCreate(string platillo,string descripcion, HttpPostedFileBase photo, int id_Categoria,int id_Estado)
+        {
+
+            try
+            {
+                string path,filePath;
+                var stream = "";
+                string fileName;
+
+                Menu myMenu = new Menu();
+                //myMenu.platillo = collection["platillo"];
+                //myMenu.descripcion = collection["descripcion"];
+                //myMenu.img =  collection["img"];
+                //myMenu.id_Categoria = Convert.ToInt32(collection["id_Categoria"]);
+                //myMenu.id_Estado = Convert.ToInt32(collection["id_Estado"]);
+
+                myMenu.platillo = platillo;
+                myMenu.descripcion = descripcion;
+                myMenu.id_Categoria = id_Categoria;
+                myMenu.id_Estado = id_Estado;
+
+                if (photo != null)
+                {
+                    fileName = platillo + new FileInfo(photo.FileName).Extension;
+                    path = Path.Combine(Server.MapPath("~/images"),Path.GetFileName(fileName));
+                    filePath = Path.Combine("images/", fileName);
+                    photo.SaveAs(path);
+
+
+                    //using (stream = new FileStream(localFileName, FileMode.Create))
+                    //{
+                    //    photo.SaveAs(stream);
+                    //}
+                }
+                else {
+                    filePath = Path.Combine("images/", "default.jpg");
+                }
+
+                db.sp_Inserta_Menu(platillo, descripcion, filePath, id_Categoria, id_Estado);
+                return RedirectToAction("AdminMenu");
+            }
+            catch(Exception ex)
+            {
+                ViewData["Error"] = "Ocurrio un error : " + ex.Message;
+                return View();
+            }
+        }
+
+        public ActionResult MenuDelete(int id)
+        {
+            sp_Seleccionar_Menu_Admin_Result myMenu = (from c in db.sp_Seleccionar_Menu_Admin() where id == c.id select c).First();
+            return View(myMenu);
+        }
+
+        [HttpPost]
+        public ActionResult MenuDelete(int id, FormCollection collection)
+        {
+            try
+            {
+                // TODO: Add delete logic here
+                sp_Seleccionar_Menu_Admin_Result myMenu = (from c in db.sp_Seleccionar_Menu_Admin() where id == c.id select c).First();
+                db.sp_Delete_Menu(myMenu.id);
+                return RedirectToAction("AdminMenu");
+            }
+            catch (Exception ex)
+            {
+                ViewData["Error"] = "Ocurrio un error : " + ex.Message;
+                return View();
+            }
+        }
+        public ActionResult MenuEdit(int id)
+        {
+            List<categoria_menu> categoriaList = db.categoria_menu.ToList();
+            ViewBag.categoriaList = new SelectList(categoriaList, "id", "categoria");
+
+            List<Estados> estadoList = db.Estados.Where(x => x.categoria == "menu").ToList();
+            ViewBag.estadoList = new SelectList(estadoList, "id", "estado");
+
+            sp_Seleccionar_Menu_Admin_Result myMenu = (from c in db.sp_Seleccionar_Menu_Admin() where id == c.id select c).First();
+            TempData["myImgOld"] = myMenu.img;
+            return View(myMenu);
+        }
+
+        [HttpPost]
+        public ActionResult MenuEdit(int id, string platillo, string descripcion, HttpPostedFileBase photo, int id_Categoria, int id_Estado)
+        {
+            var menuImgOld = TempData["myImgOld"];
+            string imgOld = (string)menuImgOld;
+            try
+            {
+                string path, filePath;
+                var stream = "";
+                string fileName;
+
+                Menu myMenu = new Menu();
+                myMenu.id = id;
+                myMenu.platillo = platillo;
+                myMenu.descripcion = descripcion;
+                myMenu.id_Categoria = id_Categoria;
+                myMenu.id_Estado = id_Estado;
+
+                if (photo != null)
+                {
+                    fileName = platillo + new FileInfo(photo.FileName).Extension;
+                    path = Path.Combine(Server.MapPath("~/images"), Path.GetFileName(fileName));
+                    filePath = Path.Combine("images/", fileName);
+                    photo.SaveAs(path);
+
+
+                    //using (stream = new FileStream(localFileName, FileMode.Create))
+                    //{
+                    //    photo.SaveAs(stream);
+                    //}
+                }
+                else
+                {
+                    filePath = imgOld;
+                }
+
+                db.sp_Update_Menu(id,platillo, descripcion, filePath, id_Categoria, id_Estado);
+                return RedirectToAction("AdminMenu");
+            }
+            catch (Exception ex)
+            {
+                ViewData["Error"] = "Ocurrio un error : " + ex.Message;
+                return View();
+            }
+        }
+
+       
 
         public ActionResult LogOut()
         {

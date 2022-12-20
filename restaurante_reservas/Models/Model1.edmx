@@ -179,6 +179,12 @@
           <Parameter Name="telefono_principal" Type="varchar" Mode="In" />
           <Parameter Name="correo" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="sp_Actualizar_Reserva" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="fecha" Type="datetime" Mode="In" />
+          <Parameter Name="id_Estado" Type="int" Mode="In" />
+          <Parameter Name="cantidad_personas" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
@@ -190,6 +196,9 @@
           <Parameter Name="owner_id" Type="int" Mode="In" />
           <Parameter Name="version" Type="int" Mode="In" />
           <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_Delete_Menu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
@@ -212,6 +221,13 @@
           <Parameter Name="telefono_principal" Type="varchar" Mode="In" />
           <Parameter Name="correo_electronico" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="sp_Inserta_Menu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="platillo" Type="varchar" Mode="In" />
+          <Parameter Name="descripcion" Type="varchar" Mode="In" />
+          <Parameter Name="img" Type="varchar" Mode="In" />
+          <Parameter Name="id_Categoria" Type="int" Mode="In" />
+          <Parameter Name="id_Estado" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_Inserta_Reserva" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id_Cliente" Type="int" Mode="In" />
           <Parameter Name="fecha" Type="datetime" Mode="In" />
@@ -231,8 +247,18 @@
           <Parameter Name="id_usuario" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_Seleccionar_Menu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_Seleccionar_Menu_Admin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_Selecionar_Reservas_Cliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id_Cliente" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_Selecionar_Todas_Reservas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_Update_Menu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="platillo" Type="varchar" Mode="In" />
+          <Parameter Name="descripcion" Type="varchar" Mode="In" />
+          <Parameter Name="img" Type="varchar" Mode="In" />
+          <Parameter Name="id_Categoria" Type="int" Mode="In" />
+          <Parameter Name="id_Estado" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="restauranteModelStoreContainer">
@@ -489,6 +515,14 @@
             <End Role="Roles" EntitySet="Roles" />
             <End Role="Usuarios" EntitySet="Usuarios" />
           </AssociationSet>
+          <FunctionImport Name="sp_Actualizar_Cliente">
+            <Parameter Name="id_Cliente" Mode="In" Type="Int32" />
+            <Parameter Name="nombre" Mode="In" Type="String" />
+            <Parameter Name="primer_apellido" Mode="In" Type="String" />
+            <Parameter Name="segundo_apellido" Mode="In" Type="String" />
+            <Parameter Name="telefono_principal" Mode="In" Type="String" />
+            <Parameter Name="correo" Mode="In" Type="String" />
+          </FunctionImport>
           <FunctionImport Name="sp_alterdiagram">
             <Parameter Name="diagramname" Mode="In" Type="String" />
             <Parameter Name="owner_id" Mode="In" Type="Int32" />
@@ -500,6 +534,9 @@
             <Parameter Name="owner_id" Mode="In" Type="Int32" />
             <Parameter Name="version" Mode="In" Type="Int32" />
             <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Delete_Menu">
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_dropdiagram">
             <Parameter Name="diagramname" Mode="In" Type="String" />
@@ -522,6 +559,13 @@
             <Parameter Name="telefono_principal" Mode="In" Type="String" />
             <Parameter Name="correo_electronico" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="sp_Inserta_Menu">
+            <Parameter Name="platillo" Mode="In" Type="String" />
+            <Parameter Name="descripcion" Mode="In" Type="String" />
+            <Parameter Name="img" Mode="In" Type="String" />
+            <Parameter Name="id_Categoria" Mode="In" Type="Int32" />
+            <Parameter Name="id_Estado" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="sp_Inserta_Reserva">
             <Parameter Name="id_Cliente" Mode="In" Type="Int32" />
             <Parameter Name="fecha" Mode="In" Type="DateTime" />
@@ -541,17 +585,25 @@
           <Parameter Name="id_usuario" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_Seleccionar_Menu" ReturnType="Collection(restauranteModel.sp_Seleccionar_Menu_Result)" />
+          <FunctionImport Name="sp_Seleccionar_Menu_Admin" ReturnType="Collection(restauranteModel.sp_Seleccionar_Menu_Admin_Result)" />
           <FunctionImport Name="sp_Selecionar_Reservas_Cliente" ReturnType="Collection(restauranteModel.sp_Selecionar_Reservas_Cliente_Result)">
           <Parameter Name="id_Cliente" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="sp_Selecionar_Todas_Reservas" ReturnType="Collection(restauranteModel.sp_Selecionar_Todas_Reservas_Result)" />
+          <FunctionImport Name="sp_Update_Menu">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="platillo" Mode="In" Type="String" />
+            <Parameter Name="descripcion" Mode="In" Type="String" />
+            <Parameter Name="img" Mode="In" Type="String" />
+            <Parameter Name="id_Categoria" Mode="In" Type="Int32" />
+            <Parameter Name="id_Estado" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
-          <FunctionImport Name="sp_Actualizar_Cliente">
-            <Parameter Name="id_Cliente" Mode="In" Type="Int32" />
-            <Parameter Name="nombre" Mode="In" Type="String" />
-            <Parameter Name="primer_apellido" Mode="In" Type="String" />
-            <Parameter Name="segundo_apellido" Mode="In" Type="String" />
-            <Parameter Name="telefono_principal" Mode="In" Type="String" />
-            <Parameter Name="correo" Mode="In" Type="String" />
+          <FunctionImport Name="sp_Actualizar_Reserva">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="fecha" Mode="In" Type="DateTime" />
+            <Parameter Name="id_Estado" Mode="In" Type="Int32" />
+            <Parameter Name="cantidad_personas" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
@@ -593,10 +645,26 @@
           <Property Type="String" Name="categoria" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="estado" Nullable="false" MaxLength="50" />
         </ComplexType>
+        <ComplexType Name="sp_Seleccionar_Menu_Admin_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="platillo" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="descripcion" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="img" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="categoria" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="estado" Nullable="false" MaxLength="50" />
+        </ComplexType>
         <ComplexType Name="sp_Selecionar_Reservas_Cliente_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
           <Property Type="DateTime" Name="fecha" Nullable="false" Precision="23" />
           <Property Type="Int32" Name="id_Cliente" Nullable="false" />
+          <Property Type="String" Name="estado" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="cantidad_personas" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_Selecionar_Todas_Reservas_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="DateTime" Name="fecha" Nullable="false" Precision="23" />
+          <Property Type="String" Name="Cedula" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="id_Estado" Nullable="false" />
           <Property Type="String" Name="estado" Nullable="false" MaxLength="50" />
           <Property Type="Int32" Name="cantidad_personas" Nullable="false" />
         </ComplexType>
@@ -691,8 +759,10 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_Actualizar_Cliente" FunctionName="restauranteModel.Store.sp_Actualizar_Cliente" />
           <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="restauranteModel.Store.sp_alterdiagram" />
           <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="restauranteModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_Delete_Menu" FunctionName="restauranteModel.Store.sp_Delete_Menu" />
           <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="restauranteModel.Store.sp_dropdiagram" />
           <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="restauranteModel.Store.sp_helpdiagramdefinition">
             <ResultMapping>
@@ -725,6 +795,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Inserta_Menu" FunctionName="restauranteModel.Store.sp_Inserta_Menu" />
           <FunctionImportMapping FunctionImportName="sp_Inserta_Reserva" FunctionName="restauranteModel.Store.sp_Inserta_Reserva" />
           <FunctionImportMapping FunctionImportName="sp_Login" FunctionName="restauranteModel.Store.sp_Login" />
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="restauranteModel.Store.sp_renamediagram" />
@@ -756,6 +827,18 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Seleccionar_Menu_Admin" FunctionName="restauranteModel.Store.sp_Seleccionar_Menu_Admin">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="restauranteModel.sp_Seleccionar_Menu_Admin_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="platillo" ColumnName="platillo" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="img" ColumnName="img" />
+                <ScalarProperty Name="categoria" ColumnName="categoria" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_Selecionar_Reservas_Cliente" FunctionName="restauranteModel.Store.sp_Selecionar_Reservas_Cliente">
             <ResultMapping>
               <ComplexTypeMapping TypeName="restauranteModel.sp_Selecionar_Reservas_Cliente_Result">
@@ -767,8 +850,21 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Selecionar_Todas_Reservas" FunctionName="restauranteModel.Store.sp_Selecionar_Todas_Reservas">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="restauranteModel.sp_Selecionar_Todas_Reservas_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="Cedula" ColumnName="Cedula" />
+                <ScalarProperty Name="id_Estado" ColumnName="id_Estado" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="cantidad_personas" ColumnName="cantidad_personas" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Update_Menu" FunctionName="restauranteModel.Store.sp_Update_Menu" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="restauranteModel.Store.sp_upgraddiagrams" />
-          <FunctionImportMapping FunctionImportName="sp_Actualizar_Cliente" FunctionName="restauranteModel.Store.sp_Actualizar_Cliente" />
+          <FunctionImportMapping FunctionImportName="sp_Actualizar_Reserva" FunctionName="restauranteModel.Store.sp_Actualizar_Reserva" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
